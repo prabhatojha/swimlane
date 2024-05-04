@@ -1,0 +1,17 @@
+.task-card{
+    margin: 10px 0px;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0 1px 5px lightgray;
+    border: 1px solid #ddd;
+    cursor: grab;
+    h3 {
+        font-size: 1rem;
+        padding: 0;
+        margin: 0;
+    }
+
+    p {
+        font-size: .8rem;
+    }
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 import Button from '@mui/material/Button';
 import { SwimlaneDashboard } from './pages/swimlane-dashboard/SwimlaneDashboard';
 import { store } from './stores/root';

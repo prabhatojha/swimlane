@@ -40,12 +40,17 @@ const initialState: TasksState = {
   value: INITIAL_TASKS,
 }
 
+type PayloadActionProps = 
+  {fromColumnId: string, toColumnId: string, taskId: string, addionalProps: {
+    [field: string]: string
+  }};
+
 export const taskSlice = createSlice({
   name: 'tasks',
   initialState,
   reducers: {
-    moveTask: (state, action: PayloadAction<{fromColumnId: string, toColumnId: string, taskId: string}>) => {
-      const {fromColumnId, toColumnId, taskId} = action.payload;
+    moveTask: (state, action: PayloadAction<PayloadActionProps>) => {
+      const {fromColumnId, toColumnId, taskId, addionalProps = {}} = action.payload;
 
       const { value } = current(state);
       const fromList = [...value[fromColumnId]];
@@ -53,7 +58,7 @@ export const taskSlice = createSlice({
       const task = fromList[movingTaskIndex];
 
       state.value[fromColumnId].splice(movingTaskIndex, 1);
-      state.value[toColumnId].push(task);
+      state.value[toColumnId].push({...task, ...addionalProps});
     },
   },
 });

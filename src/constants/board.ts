@@ -6,29 +6,50 @@ export const TASK_SATES = Object.freeze({
     DONE: 'Done',
 });
 
+export const COLUMN_IDS = Object.freeze({
+    TODO: '1',
+    IN_PROGRESS: '2',
+    IN_REVIEW: '3',
+    DONE: '4',
+});
+
+// export const COLUMN_TASK_STATES_MAP = Object.freeze({
+//     TODO: '1',
+//     IN_PROGRESS: '2',
+//     IN_REVIEW: '3',
+//     DONE: '4',
+// });
+
 export const SWIMLANE_CONFIG = [
     {
-        id: '1',
+        id: COLUMN_IDS.TODO,
         state: TASK_SATES.TODO,
         requiredFeilds: ['name'],
-        moveableTo: [TASK_SATES.IN_PROGRESS]
+        moveableTo: [COLUMN_IDS.IN_PROGRESS]
     },
     {
-        id: '2',
+        id: COLUMN_IDS.IN_PROGRESS,
         state: TASK_SATES.IN_PROGRESS,
         requiredFeilds: ['name', 'description'],
-        moveableTo: [TASK_SATES.IN_REVIEW, TASK_SATES.DONE]
+        moveableTo: [COLUMN_IDS.IN_REVIEW, COLUMN_IDS.DONE]
     },
     {
-        id: '3',
+        id: COLUMN_IDS.IN_REVIEW,
         state: TASK_SATES.IN_REVIEW,
         requiredFeilds: ['name', 'description', 'timespent'],
-        moveableTo: [TASK_SATES.TODO, TASK_SATES.DONE]
+        moveableTo: [COLUMN_IDS.TODO, COLUMN_IDS.DONE]
     },
     {
-        id: '4',
+        id: COLUMN_IDS.DONE,
         state: TASK_SATES.DONE,
         requiredFeilds: ['name', 'description', 'timespent', 'comment'],
         moveableTo: []
     }
-]
+];
+
+export const FIELD_NAME_LABEL : {[name: string]: string} = {
+    name: 'Name',
+    description: 'Description',
+    timespent: 'Time Spent',
+    comment: 'Comment',
+};

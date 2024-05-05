@@ -17,8 +17,7 @@ export function validateMinDataRequirement(props: any) {
 export function filterTheTasks(allTasks: AllTasks, filters: any) {
     const { query } = filters;
     return Object.keys(allTasks).reduce((acc, key) => {
-        // @ts-ignore
-        acc[key] = allTasks[key].filter(task => task.name.toLowerCase().includes(query));
+        (acc as any)[key] = allTasks[key].filter(task => task.name.toLowerCase().includes(query));
         return acc;
     }, {})
 }

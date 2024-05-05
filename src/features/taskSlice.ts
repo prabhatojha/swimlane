@@ -1,59 +1,52 @@
 import { createSlice, current } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { AllTasks, TaskHistory, TaskT } from '../components/types'
-import { TASK_SATES } from '../constants/board'
+import { COLUMN_IDS, TASK_SATES } from '../constants/board'
 import { filterTheTasks } from '../utils/swimlane-column'
 
 export const INITIAL_TASKS = {
-  '1': [
+  [COLUMN_IDS.TODO]: [
     {
       id: 'task-id-1',
       name: 'Requirement gathering',
       description: 'Gather software requirements',
-      state: TASK_SATES.TODO
     },
     {
       id: 'task-id-2',
       name: 'Design documents',
       description: 'Design the detailed documenatation',
-      state: TASK_SATES.TODO
     },
     {
       id: 'task-id-3',
       name: 'Dev task 3',
       description: 'Dev task 3',
-      state: TASK_SATES.TODO
     },
     {
       id: 'task-id-4',
       name: 'Dev task 4',
       description: 'Dev task 4',
-      state: TASK_SATES.TODO
     }
   ],
-  '2': [
+  [COLUMN_IDS.IN_PROGRESS]: [
     {
       id: 'task-id-5',
       name: 'As a user, I should be able to see the product name',
       description: 'As a user, I should be able to see the product name',
-      state: TASK_SATES.IN_PROGRESS
     },
     {
       id: 'task-id-6',
       name: 'UI dev task (1/2)',
       description: 'Complete the UI development',
-      state: TASK_SATES.IN_PROGRESS
     }
   ],
-  '3': [
+  [COLUMN_IDS.IN_REVIEW]: [
     {
       id: 'task-id-3',
       name: 'Dev task 1', 
       description: 'Create the basic setup', 
-      state: TASK_SATES.IN_REVIEW
     },
   ],
-  '4': []
+  [COLUMN_IDS.DONE]: []
 }
 
 
@@ -70,9 +63,7 @@ export interface TasksState {
 }
 
 const initialState: TasksState = {
-  // @ts-ignore : TODO, fix type here
   value: INITIAL_TASKS,
-  // @ts-ignore : TODO, fix type here
   originalState: INITIAL_TASKS,
   history: {},
   selectedTask: undefined,
@@ -105,7 +96,7 @@ export const taskSlice = createSlice({
 
       state.value = filterTheTasks(state.originalState, state.filters);
     },
-    selectTask: (state, action: PayloadAction<TaskT>) => {
+    selectTask: (state, action: PayloadAction<TaskT | undefined>) => {
       state.selectedTask = action.payload;
     },
     filterTasks: (state, action: PayloadAction<string>) => {

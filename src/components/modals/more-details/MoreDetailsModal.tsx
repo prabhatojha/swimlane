@@ -1,5 +1,3 @@
-import { useDispatch } from "react-redux";
-import { moveTask } from '../../../features/taskSlice';
 import { Modal, Box, Input, TextField, Button, Fade } from "@mui/material";
 import './style.scss';
 import { FIELD_NAME_LABEL } from "../../../constants/board";
@@ -24,8 +22,6 @@ const style = {
 export function MoreDetailsModal(props: MoreDetailsModalPropsT) {
     const { requiredFields, onSuccess, onCancel } = props;
     const [properties, setProperties] = useState(requiredFields.reduce((acc, field) => ({ ...acc, [field]: '' }), {}))
-
-    const dispatch = useDispatch();
 
     function handleClose() {
         onCancel();

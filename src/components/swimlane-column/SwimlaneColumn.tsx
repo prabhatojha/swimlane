@@ -14,7 +14,7 @@ type SwimlaneColumnPropsT = {
     column: ColumnT;
 }
 /**
- * - Will host all the task in current column state
+ * - Will host all the task in current column
  * - Responsible to dispatch item move action into the store
  */
 export function SwimlaneColumn(props: SwimlaneColumnPropsT) {
@@ -55,11 +55,12 @@ export function SwimlaneColumn(props: SwimlaneColumnPropsT) {
             setRequiredFields(requiredFields);
             return;
         }
-        
+
         triggerMove(movingTaskDetails.current);
     }
 
     function triggerMove(payload: any) {
+        // Settimeout to simulate post API call to BE
         setTimeout(() => {
             dispatch(moveTask(payload));
         }, 100);

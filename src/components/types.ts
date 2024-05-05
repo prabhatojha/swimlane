@@ -9,9 +9,7 @@ export type ColumnT = {
 export type TaskT = {
     id: string,
     name: string,
-    description: '',
-    // @ts-ignore : TODO, we should be able to get dynamic type created using $Values (fix this)
-    state:  $Values<typeof TASK_SATES>
+    description: string,
 }
 
 export type AllTasks = {

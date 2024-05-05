@@ -14,7 +14,6 @@ export function TaskDetails() {
     const currentTaskHistory = task ? (allTasksHistory[task?.id] || []) : [];
 
     function handleClose() {
-        // @ts-ignore
         dispatch(selectTask(undefined));
     }
 
@@ -34,8 +33,8 @@ export function TaskDetails() {
                         <div>
                             {
                                 Object.keys(task).map(key => {
-                                    // @ts-ignore
-                                    return <p><strong className="task-details-key">{key}</strong> {task[key]}</p>
+                                    // Choosing any as the keys are dynamic for task
+                                    return <p><strong className="task-details-key">{key}</strong> {(task as any)[key]}</p>
                                 })
                             }
                         </div>
@@ -43,7 +42,7 @@ export function TaskDetails() {
                         <div className="task-history">
                             {
                                 currentTaskHistory.map(history => {
-                                    // @ts-ignore
+                                    // @ts-ignore // TODO: fix the dynamic index typechecking
                                     return <p className="history-item"><label>{COLUMN_TASK_STATES_MAP[history.from]}</label> <ForwardIcon /> <label>{COLUMN_TASK_STATES_MAP[history.to]}</label></p>
                                 })
                             }

@@ -1,7 +1,8 @@
 import { createSlice, current } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { AllTasks } from '../components/types'
+import { AllTasks, TaskHistory, TaskT } from '../components/types'
 import { TASK_SATES } from '../constants/board'
+import { filterTheTasks } from '../utils/swimlane-column'
 
 export const INITIAL_TASKS = {
   '1': [
@@ -16,9 +17,34 @@ export const INITIAL_TASKS = {
       name: 'Design documents',
       description: 'Design the detailed documenatation',
       state: TASK_SATES.TODO
+    },
+    {
+      id: 'task-id-3',
+      name: 'Dev task 3',
+      description: 'Dev task 3',
+      state: TASK_SATES.TODO
+    },
+    {
+      id: 'task-id-4',
+      name: 'Dev task 4',
+      description: 'Dev task 4',
+      state: TASK_SATES.TODO
     }
   ],
-  '2': [],
+  '2': [
+    {
+      id: 'task-id-5',
+      name: 'As a user, I should be able to see the product name',
+      description: 'As a user, I should be able to see the product name',
+      state: TASK_SATES.IN_PROGRESS
+    },
+    {
+      id: 'task-id-6',
+      name: 'UI dev task (1/2)',
+      description: 'Complete the UI development',
+      state: TASK_SATES.IN_PROGRESS
+    }
+  ],
   '3': [
     {
       id: 'task-id-3',
@@ -32,12 +58,27 @@ export const INITIAL_TASKS = {
 
 
 export interface TasksState {
-  value: AllTasks
+  value: AllTasks;
+  originalState: AllTasks;
+  history: {
+    [taskId: string]: TaskHistory
+  }
+  selectedTask?: TaskT;
+  filters: {
+    query: string
+  };
 }
 
 const initialState: TasksState = {
   // @ts-ignore : TODO, fix type here
   value: INITIAL_TASKS,
+  // @ts-ignore : TODO, fix type here
+  originalState: INITIAL_TASKS,
+  history: {},
+  selectedTask: undefined,
+  filters: {
+    query: ''
+  }
 }
 
 type PayloadActionProps = 
@@ -52,18 +93,28 @@ export const taskSlice = createSlice({
     moveTask: (state, action: PayloadAction<PayloadActionProps>) => {
       const {fromColumnId, toColumnId, taskId, addionalProps = {}} = action.payload;
 
-      const { value } = current(state);
-      const fromList = [...value[fromColumnId]];
+      const { originalState } = current(state);
+      const fromList = [...originalState[fromColumnId]];
       const movingTaskIndex = fromList.findIndex(task => task.id === taskId);
       const task = fromList[movingTaskIndex];
 
-      state.value[fromColumnId].splice(movingTaskIndex, 1);
-      state.value[toColumnId].push({...task, ...addionalProps});
+      state.originalState[fromColumnId].splice(movingTaskIndex, 1);
+
+      state.history[taskId] = [...(state.history[taskId] || []), {from: fromColumnId, to: toColumnId}];
+      state.originalState[toColumnId].push({...task, ...addionalProps});
+
+      state.value = filterTheTasks(state.originalState, state.filters);
     },
+    selectTask: (state, action: PayloadAction<TaskT>) => {
+      state.selectedTask = action.payload;
+    },
+    filterTasks: (state, action: PayloadAction<string>) => {
+      state.filters.query = action.payload;
+      state.value = filterTheTasks(state.originalState, state.filters);
+    }
   },
 });
 
-export const { moveTask } = taskSlice.actions
-
+export const { moveTask, selectTask, filterTasks } = taskSlice.actions
 export default taskSlice.reducer
 

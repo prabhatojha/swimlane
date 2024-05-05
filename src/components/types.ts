@@ -17,3 +17,8 @@ export type TaskT = {
 export type AllTasks = {
     [columnId: string]: Array<TaskT>
 }
+
+export type TaskHistory = Array<{
+        from: string,
+        to: string
+}>;

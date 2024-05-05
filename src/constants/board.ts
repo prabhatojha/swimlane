@@ -13,12 +13,13 @@ export const COLUMN_IDS = Object.freeze({
     DONE: '4',
 });
 
-// export const COLUMN_TASK_STATES_MAP = Object.freeze({
-//     TODO: '1',
-//     IN_PROGRESS: '2',
-//     IN_REVIEW: '3',
-//     DONE: '4',
-// });
+
+export const COLUMN_TASK_STATES_MAP = Object.freeze({
+    [COLUMN_IDS.TODO]: TASK_SATES.TODO,
+    [COLUMN_IDS.IN_PROGRESS]: TASK_SATES.IN_PROGRESS,
+    [COLUMN_IDS.IN_REVIEW]: TASK_SATES.IN_REVIEW,
+    [COLUMN_IDS.DONE]: TASK_SATES.DONE,
+});
 
 export const SWIMLANE_CONFIG = [
     {

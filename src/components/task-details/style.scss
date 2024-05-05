@@ -1,0 +1,27 @@
+.task-details {
+    width: 350px;
+    background-color: #F4F5F7;
+    height: 100%;
+    padding: 20px;
+}
+.task-details-header{
+    display: flex;
+    justify-content: space-between;
+}
+.task-history{
+    text-transform: uppercase;
+}
+
+.task-details-key{
+    text-transform: capitalize;
+}
+.history-item{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    label {
+        padding: 5px;
+        background-color: lightslategray;
+        border-radius: 2px;
+    }
+}

@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { moveTask } from '../../../features/taskSlice';
-import { Modal, Box, Input, TextField, Button } from "@mui/material";
+import { Modal, Box, Input, TextField, Button, Fade } from "@mui/material";
 import './style.scss';
 import { FIELD_NAME_LABEL } from "../../../constants/board";
 import { useState } from "react";
@@ -23,7 +23,7 @@ const style = {
 };
 export function MoreDetailsModal(props: MoreDetailsModalPropsT) {
     const { requiredFields, onSuccess, onCancel } = props;
-    const [properties, setProperties] = useState(requiredFields.reduce((acc, field) => ({...acc, [field]: ''}), {} ))
+    const [properties, setProperties] = useState(requiredFields.reduce((acc, field) => ({ ...acc, [field]: '' }), {}))
 
     const dispatch = useDispatch();
 
@@ -36,7 +36,7 @@ export function MoreDetailsModal(props: MoreDetailsModalPropsT) {
     }
 
     function onPropertyChange(field: string, value: string) {
-        setProperties({...properties, [field]: value});
+        setProperties({ ...properties, [field]: value });
     }
 
     const shouldMoveDisabled = Object.values(properties).some(val => !val);

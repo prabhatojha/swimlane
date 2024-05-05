@@ -36,19 +36,6 @@ export function SwimlaneColumn(props: SwimlaneColumnPropsT) {
         const fromColumnId = e.dataTransfer.getData("fromColumnId");
         const taskId = e.dataTransfer.getData("taskId");
 
-        /**
-         * - Validate the target column
-         *      - get from column from SWIMLANE_CONFIG
-         *      - get moveableTo state
-         *      - check if toColumnId is part of moveableTo
-         * - Ask for additinal params
-         *      - get to column from SWIMLANE_CONFIG
-         *      - get requiredFeilds 
-         *      - validate if moving task has all the required data field
-         *      - If no, open a dialog
-         *      - If yes, trigger move
-         */
-
         movingTaskDetails.current = {
             fromColumnId,
             toColumnId: columnId,
@@ -64,8 +51,6 @@ export function SwimlaneColumn(props: SwimlaneColumnPropsT) {
             fromColumnId, toColumnId: columnId, allTasks, taskId
         });
 
-        console.log('>>>> requiredFields: ', requiredFields);
-
         if (requiredFields?.length) {
             setRequiredFields(requiredFields);
             return;
@@ -75,7 +60,9 @@ export function SwimlaneColumn(props: SwimlaneColumnPropsT) {
     }
 
     function triggerMove(payload: any) {
-        dispatch(moveTask(payload));
+        setTimeout(() => {
+            dispatch(moveTask(payload));
+        }, 100);
     }
 
     function onSuccess(addionalProps: any) {

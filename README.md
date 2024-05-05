@@ -1,3 +1,5 @@
+# Documentation is done [here](https://docs.google.com/document/d/1OSddGq32Jm9qqJvpfM3wzosuF9ZXveeYRgSCTXtbxQA/edit?usp=sharing)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

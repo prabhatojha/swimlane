@@ -41,7 +41,7 @@ export const INITIAL_TASKS = {
   ],
   [COLUMN_IDS.IN_REVIEW]: [
     {
-      id: 'task-id-3',
+      id: 'task-id-7',
       name: 'Dev task 1', 
       description: 'Create the basic setup', 
     },
